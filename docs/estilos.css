@@ -345,7 +345,7 @@ img {
 
 .tabla-descriptores td {
   border-bottom: 1px solid var(--untrm-borde-suave);
-  font-size: 7.35px;
+  font-size: 9px;
   line-height: 1.04;
   padding: 0.034cm 0.055cm;
   vertical-align: middle;
@@ -371,13 +371,13 @@ img {
 }
 
 .col-izq .tabla-descriptores td {
-  font-size: 7.15px;
+  font-size: 9px;
   padding: 0.03cm 0.05cm;
 }
 
 .col-centro .tabla-descriptores td,
 .col-der .tabla-descriptores td {
-  font-size: 7.28px;
+  font-size: 9px;
 }
 
 /* hace que la caja de cuantitativos use todo el alto disponible */
@@ -516,7 +516,7 @@ img {
 }
 
 .cuadro-coleccion .tabla-descriptores td {
-  font-size: 7.4px;
+  font-size: 9px;
   padding: 0.09cm 0.06cm;
 }
 
@@ -540,7 +540,7 @@ img {
 }
 
 .cuadro-cualitativos .tabla-descriptores td {
-  font-size: 7.4px;
+  font-size: 9px;
   padding: 0.085cm 0.06cm;
 }
 

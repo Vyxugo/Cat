@@ -72,6 +72,27 @@
         .replaceAll("'", "&#039;");
     }
 
+
+    /* Crea un ID seguro para cada ficha usando el código de accesión.
+       Ejemplo: UNTRM-367-1005 -> UNTRM-367-1005 */
+    function crearIdFicha(codigo) {
+      return String(codigo || "SIN-CODIGO")
+        .trim()
+        .replace(/\s+/g, "-")
+        .replace(/[^a-zA-Z0-9_-]/g, "-");
+    }
+
+    function irAFichaPorHash() {
+      if (!window.location.hash) return;
+
+      const id = decodeURIComponent(window.location.hash.substring(1));
+      const ficha = document.getElementById(id);
+
+      if (ficha) {
+        ficha.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+    }
+
     function normalizeKey(text) {
       return String(text || "")
         .trim()
@@ -241,6 +262,7 @@
 
     async function createFicha(item, numeroPagina) {
       const codigo = getField(item, "UNTRM code", "UNTRM CODE", "CODE");
+      const idFicha = crearIdFicha(codigo);
 
       const image1 = getField(item, "image_panoja", "IMAGE_PANOJA");
       const image2 = getField(item, "image_seed", "IMAGE_SEED");
@@ -325,7 +347,7 @@
       ].join("");
 
       return `
-        <section class="pagina ficha-quinua ficha-organizada">
+        <section id="${idFicha}" class="pagina ficha-quinua ficha-organizada" data-codigo="${escapeHtml(codigo || "SIN CÓDIGO")}">
           <div class="ficha-wrap">
             <div class="marca-superior"></div>
 
@@ -421,10 +443,17 @@
             pagina += 1;
           }
         }
+
+        // Si el usuario entra desde un QR, por ejemplo:
+        // https://vyxugo.github.io/Cat/#UNTRM-367-1005
+        // esta función lo lleva directo a la ficha correspondiente.
+        setTimeout(irAFichaPorHash, 300);
       } catch (error) {
         console.error("Error al cargar la hoja:", error);
       }
     }
+
+    window.addEventListener("hashchange", irAFichaPorHash);
 
     iniciar();
   </script>
